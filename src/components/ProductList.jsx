@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getProducts } from '../api/ProductService';  // Servicio que obtiene productos
+import { getProducts } from '../api/service/ProductService';  // Servicio que obtiene productos
 import '../styles/ProductList.css';
+import PurchasedProduct from './PurchasedProduct';
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -31,6 +32,8 @@ export default function ProductList() {
                   <p>{product.description}</p>
                   <p className="price">Precio: ${product.price}</p>
                   <p className="stock">Stock: {product.stock}</p>
+                  {/* esto hay que mejorar bastante*/}
+                  <button onClick={ <PurchasedProduct idCustomer={1} idProduct={key}></PurchasedProduct>}> comprar </button>
                 </div>
               ))
             ) : <p>No hay productos para mostrar</p> 

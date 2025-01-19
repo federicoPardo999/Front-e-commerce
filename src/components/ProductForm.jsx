@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../styles/ProductForm.css';
 import { useNavigate } from 'react-router-dom';
-import { createProduct } from '../api/ProductService';  // Usa la función del servicio
+import { createProduct } from '../api/service/ProductService';  // Usa la función del servicio
 
 export default function ProductForm() {
   const [productName, setProductName] = useState('');
