@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css';
 
-function Login() {
+export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
+    <section className="login-container">
       <h2>Login de Administrador</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -41,8 +41,6 @@ function Login() {
         </div>
         <button type="submit">Login</button>
       </form>
-    </div>
+    </section>
   );
 }
-
-export default Login;

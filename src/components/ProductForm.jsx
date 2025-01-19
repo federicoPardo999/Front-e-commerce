@@ -1,23 +1,40 @@
 import { useState } from 'react';
 import '../styles/ProductForm.css';
+import { useNavigate } from 'react-router-dom';
+import { createProduct } from '../api/ProductService';  // Usa la función del servicio
 
-function ProductForm() {
+export default function ProductForm() {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productDescription, setProductDescription] = useState('');
+  const [productImage, setProductImage] = useState(null); // Para manejar la imagen
+  const [productCategory, setProductCategory] = useState('');
+  const [productStock, setProductStock] = useState('');
+  
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (e) => {
+    setProductImage(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí podrías agregar la lógica para guardar el producto, como hacer una petición a la API
-    console.log('Producto cargado:', {
-      name: productName,
-      price: productPrice,
-      description: productDescription,
-    });
-    // Limpiar el formulario después de enviar
-    setProductName('');
-    setProductPrice('');
-    setProductDescription('');
+
+    // Crear el FormData para enviar la imagen y otros campos
+    const formData = new FormData();
+    formData.append('name', productName);
+    formData.append('price', productPrice);
+    formData.append('description', productDescription);
+    formData.append('stock', productStock);
+    formData.append('category', productCategory);
+    if (productImage) formData.append('image', productImage);
+
+    try {
+      await createProduct(formData);
+      alert('Producto creado correctamente');
+    } catch (error) {
+      console.error('Error creando el producto:', error);
+    }
   };
 
   return (
@@ -50,10 +67,42 @@ function ProductForm() {
             required
           />
         </div>
+        <div>
+          <label>Categoría</label>
+          <input
+            type="text"
+            value={productCategory}
+            onChange={(e) => setProductCategory(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Stock</label>
+          <input
+            type="number"
+            value={productStock}
+            onChange={(e) => setProductStock(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Imagen</label>
+          <input
+            type="file"
+            onChange={handleImageChange}
+            required
+          />
+        </div>
         <button type="submit">Cargar Producto</button>
       </form>
-    </div>
-  );
-}
 
-export default ProductForm;
+      <section>
+        <button type="button" onClick={() => {navigate("/product-list")}}>
+          Ver Productos
+        </button>
+      </section>
+    </div>
+    
+  );
+
+}
