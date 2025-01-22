@@ -19,7 +19,7 @@ export default function Login() {
 
   return (
     <section className="login-container">
-      <h2>Login de Administrador</h2>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username</label>
