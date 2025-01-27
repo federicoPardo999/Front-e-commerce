@@ -82,6 +82,7 @@ export default function ProductForm() {
             type="number"
             value={productStock}
             onChange={(e) => setProductStock(e.target.value)}
+            min={1}
             required
           />
         </div>
