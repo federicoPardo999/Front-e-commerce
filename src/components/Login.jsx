@@ -39,15 +39,15 @@ export default function Login() {
         setError('Invalid credential')
       }
 
-      }catch (error){
-      console.error('Error logging in:', error);
+    } catch (error) {
+      setError('Invalid credentials. Please try again.');
     }
   };
 
   return (
     <section className="login-container">
       <h2>Login</h2>
-      {error && <p>{error}</p>}
+      {error && <p className='mensaje-error'>{error}</p>}
       <form onSubmit={handleLogin}>
         <div>
           <label>Username 

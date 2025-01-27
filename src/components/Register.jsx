@@ -36,23 +36,23 @@ const Register = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>   
+            <div className='register'>   
                 <label>Username</label>
                 <input type="text" name="username" value={registerData.username} onChange={handleChange} required />
             </div>
-            <div>
+            <div className='register'>
                 <label>Password</label>
                 <input type="password" name="password" value={registerData.password} onChange={handleChange} required />
             </div>
-            <div>
+            <div className='register'>
                 <label>Address</label>
                 <input type="text" name="address" value={registerData.address} onChange={handleChange} required />
             </div>
-            <div>
+            <div className='register'> 
                 <label>Mail</label>
                 <input type="email" name="mail" value={registerData.mail} onChange={handleChange} required />
             </div>
-            <div>
+            <div className='register'>
                 <label>Role</label>
                 <input type="text" name="role" value={registerData.role} onChange={handleChange} required />
             </div>

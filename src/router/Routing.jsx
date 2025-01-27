@@ -23,7 +23,7 @@ export default function Routing() {
             <Route path="/product-form" element={<ProductForm />} />
         </Route>
 
-        <Route element={<ProtectedRoute AllowedRulles ={["CUSTOMER"]} />} >
+        <Route element={<ProtectedRoute AllowedRulles ={["CUSTOMER","ADMIN"]} />} >
             <Route path="/product-list" element={<ProductList />} />
             
         </Route>

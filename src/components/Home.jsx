@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const role  = useSelector((state) => state.auth?.role);
+  const role  = useSelector((state) => state.user.role);
   const navigate = useNavigate();
 
   useEffect(() => {
