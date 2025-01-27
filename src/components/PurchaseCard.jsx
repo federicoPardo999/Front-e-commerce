@@ -1,4 +1,4 @@
-export default function PurchasedProduct(idCustomer,idProduct){
+export default function PurchaseCard(idCustomer,idProduct){
     return(
         <div>
             <h2>Producto Comprado</h2>
