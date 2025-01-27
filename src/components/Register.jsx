@@ -3,8 +3,6 @@ import { register } from '../api/service/AuthService.js';
 import { useNavigate } from 'react-router-dom';
 import "../styles/Register.css";
 
-
-
 const Register = () => {
     const [registerData, setRegisterData] = useState({
         username: '',
@@ -14,6 +12,7 @@ const Register = () => {
         role: ''
     });
 
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -29,33 +28,36 @@ const Register = () => {
         try {
             await register(registerData);
             navigate('/login'); 
-        } catch (error) {
-            console.error('Error registering user:', error);
+        }catch (error) {
+            console.error("usuario ya registrado");
+            setError("usuario ya registrado");
         }
     };
 
     return (
         <form onSubmit={handleSubmit}>
             <div className='register'>   
-                <label>Username</label>
-                <input type="text" name="username" value={registerData.username} onChange={handleChange} required />
+                <label htmlFor="username">Username</label>
+                <input id="username" type="text" name="username" value={registerData.username} onChange={handleChange} required />
             </div>
             <div className='register'>
-                <label>Password</label>
-                <input type="password" name="password" value={registerData.password} onChange={handleChange} required />
+                <label htmlFor="password">Password</label>
+                <input id="password" type="password" name="password" value={registerData.password} onChange={handleChange} required />
             </div>
             <div className='register'>
-                <label>Address</label>
-                <input type="text" name="address" value={registerData.address} onChange={handleChange} required />
+                <label htmlFor="address">Address</label>
+                <input id="address" type="text" name="address" value={registerData.address} onChange={handleChange} required />
             </div>
             <div className='register'> 
-                <label>Mail</label>
-                <input type="email" name="mail" value={registerData.mail} onChange={handleChange} required />
+                <label htmlFor="mail">Mail</label>
+                <input id="mail" type="email" name="mail" value={registerData.mail} onChange={handleChange} required />
             </div>
-            <div className='register'>
-                <label>Role</label>
-                <input type="text" name="role" value={registerData.role} onChange={handleChange} required />
-            </div>
+            <select className='role-container' id="role" name="role" value={registerData.role} onChange={handleChange}>
+                <option className='role-input' value="">Select role</option>
+                <option className='role-input' value="ADMIN">ADMIN</option>
+                <option className='role-input' value="CUSTOMER">CUSTOMER</option>
+            </select>
+            {error && <p className='error-message'>{error}</p>}
             <button type="submit">Register</button>
         </form>
     );

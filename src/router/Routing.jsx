@@ -3,7 +3,7 @@ import Login from '../components/Login';
 import ProductForm from '../components/ProductForm';
 import ProductList from '../components/ProductList';
 import Register from '../components/Register';
-import Home from '../components/Home';
+import Home from './Home';
 import MainPage from '../components/MainPage';
 import ProtectedRoute from './ProtectedRoute';
 

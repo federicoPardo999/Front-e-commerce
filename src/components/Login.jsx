@@ -7,74 +7,90 @@ import { setCredentials } from '../store/AuthSlice';
 
 export default function Login() {
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
- 
+  const [loginData, setLoginData] = useState({
+          username: '',
+          password: ''
+      });
+
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const handleBack = (e) => {
+    e.preventDefault();
+    navigate('/');
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setLoginData({
+        ...loginData,
+        [name]: value
+    });
+
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(''); 
     
-      const loginData = {
-        username: username,
-        password: password,
-      };
-
     try{
       const result = await login(loginData);
-      if (result && result.token) {
+      if (result?.token) {
           dispatch(setCredentials({
           username: result.username,
           token: result.token,
           role: result.role,
-
-        }));
+          }));
         navigate('/home');
         
       }else{
         setError('Invalid credential')
       }
 
-    } catch (error) {
-      setError('Invalid credentials. Please try again.');
+    } catch (e) {
+      setError(e.response.data.message);
     }
   };
 
   return (
-    <section className="login-container">
-      <h2>Login</h2>
-      {error && <p className='mensaje-error'>{error}</p>}
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>Username 
-          <input
-            name  = "username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          </label>
-         
-        </div>
-        <div>
-          <label>Password
-          <input
-            name  = "password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          </label>
+    <>
+      <div className='container-button-back'>
+          <button onClick={handleBack}> asdsda</button>
+      </div>
+      <section className="login-container">
+        <h2>Login</h2>
+        {error && <p className='mensaje-error'>{error}</p>}
+        <form onSubmit={handleLogin}>
+          <div>
+            <label htmlFor='username'>Username</label>
+            <input
+              id = "username"
+              name="username"
+              type="text"
+              value={loginData.username}
+              onChange={handleChange}
+              required
+            />
           
-        </div>
-        <button type="submit">Login</button>
-      </form>
-    </section>
+          </div>
+          <div>
+            <label htmlFor='password'>Password </label>
+              <input
+                id = "password"
+                name  = "password"
+                type="password"
+                value={loginData.password}
+                onChange={handleChange}
+                required
+              />
+            
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </section>
+    </>
   );
 }

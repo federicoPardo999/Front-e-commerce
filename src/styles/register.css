@@ -1,7 +1,7 @@
 /* Estilos generales */
 body {
     font-family: sans-serif;
-    background-color: #f4f4f9;
+    background-color: #efefef;
     margin: 0;
     padding: 0;
     display: flex;
@@ -14,7 +14,7 @@ form {
     background-color: #ffffff;
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow:  4.5px 2px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
     display: flex;
@@ -82,9 +82,38 @@ input:hover {
     width: 100%;
 }
 
+.error-message{
+    color: red;
+    padding: 0.4em;
+    background-color: rgba(199, 51, 51, 0.61);
+    border-radius: 0.5em;
+}
+
+
+.role-container{
+    min-height: 2.5em;
+    margin-bottom: 1em;
+    outline: none;
+    border: #aaaaaa 1px solid;  
+    box-shadow: 2px 2px 1px 1px #dddddd;
+    cursor : pointer;
+  }
+
+.role-input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 0.5em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #333333;
+    background-color: #ffffff;
+    cursor: pointer;
+  }
 
 @media (max-width: 480px) {
-    form {
+    form {  
         padding: 1.5rem;
     }
 
@@ -98,3 +127,6 @@ input:hover {
         padding: 0.5rem;
     }
 }
+
+
+
