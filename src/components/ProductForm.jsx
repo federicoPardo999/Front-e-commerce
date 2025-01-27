@@ -2,17 +2,18 @@ import { useState } from 'react';
 import '../styles/ProductForm.css';
 import { useNavigate } from 'react-router-dom';
 import { createProduct } from '../api/service/ProductService';  // Usa la función del servicio
+import { useSelector } from 'react-redux';
 
 export default function ProductForm() {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [productImage, setProductImage] = useState(null); // Para manejar la imagen
-  const [productCategory, setProductCategory] = useState('');
   const [productStock, setProductStock] = useState('');
+
   
   const navigate = useNavigate();
-
+  const token = useSelector((state) => state.auth.token);
   const handleImageChange = (e) => {
     setProductImage(e.target.files[0]);
   };
@@ -26,14 +27,15 @@ export default function ProductForm() {
     formData.append('price', productPrice);
     formData.append('description', productDescription);
     formData.append('stock', productStock);
-    formData.append('category', productCategory);
     if (productImage) formData.append('image', productImage);
 
     try {
       await createProduct(formData);
       alert('Producto creado correctamente');
+      navigate('/product-list'); // Redirigir a la lista de productos
     } catch (error) {
       console.error('Error creando el producto:', error);
+      alert('Error al crear el producto');
     }
   };
 
@@ -68,15 +70,6 @@ export default function ProductForm() {
           />
         </div>
         <div>
-          <label>Categoría</label>
-          <input
-            type="text"
-            value={productCategory}
-            onChange={(e) => setProductCategory(e.target.value)}
-            required
-          />
-        </div>
-        <div>
           <label>Stock</label>
           <input
             type="number"
@@ -103,7 +96,5 @@ export default function ProductForm() {
         </button>
       </section>
     </div>
-    
   );
-
 }
