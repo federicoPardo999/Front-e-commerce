@@ -3,10 +3,13 @@ import { getProducts } from '../api/service/ProductService';  // Servicio que ob
 import '../styles/ProductList.css';
 import {useSelector} from 'react-redux';
 
+import {addProductToCart} from '../api/service/CartService';
+
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const token = useSelector((state) => state.user.token);
+  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -21,9 +24,25 @@ export default function ProductList() {
     fetchProducts();
   }, []);
 
+const handleQuantityChange = (idProduct, newQuantity) => {
+    setQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [idProduct]: newQuantity,
+    }));
+};
+
+  const handleAddCart = async (idProduct) => {
+    try{
+      console.log(idProduct,quantities);
+      await addProductToCart(token,idProduct,quantities[idProduct]); 
+    }catch(e){
+      console.error('Error adding product to cart:', e);  
+    }
+  }
+
   return (
     <div>
-      <h2>Lista de Productos</h2>
+      <h2>List of products</h2>
       <div className="product-list">
         {
             (products.length > 0) ? (
@@ -34,6 +53,16 @@ export default function ProductList() {
                   <p>{product.description}</p>
                   <p className="price">Precio: ${product.price}</p>
                   <p className="stock">Stock: {product.stock}</p>
+                  <input 
+                  placeholder='Quantity to add'
+                  type= 'number'
+                  min={1}
+                  value = {quantities[product.idProduct] || 1}
+                  name='Quantity of products' 
+                  onChange={(e) => 
+                    handleQuantityChange(product.idProduct, Number(e.target.value))}
+                  />
+                  <button onClick={() => handleAddCart(product.idProduct)}>add to cart</button>
                 </div>
               ))
             ) : <p>No hay productos para mostrar</p> 
