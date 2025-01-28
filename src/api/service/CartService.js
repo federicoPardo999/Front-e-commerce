@@ -1,15 +1,30 @@
-import API_URL from '../config'; 
+import API_URL from '../conecction/config'; 
 import { executeFetch } from '../conecction/fetch';
 import { HttpMethods } from '../conecction/HttpMethods';
 
-export const addProductToCart = async (token,idProduct,quantity) =>{
+export const addProductToCart = async (token,productId,quantityBuyStock) =>{
     const endpoint = `${API_URL}/cart/add`;
-    console.log(token,idProduct,quantity);
-    const formData = {
-        quantity,
-        idProduct  
+    const requestData = {
+        quantityBuyStock,
+        productId  
     };
    
+    return await executeFetch(endpoint, requestData, HttpMethods.POST, token, 201);
+}
 
-    return await executeFetch(endpoint, formData, HttpMethods.POST, token, 201);
+export const getProductsCart = async (token) =>{
+    const endpoint = `${API_URL}/cart`;
+    
+    return await executeFetch(endpoint, null, HttpMethods.GET, token, 200);
+}
+
+export const updateStockProduct = async (token,productId,quantityBuyStock) =>{
+    const endpoint = `${API_URL}/cart/update-stock`;
+
+    const requestData = {
+        quantityBuyStock,
+        productId  
+    };
+   
+    return await executeFetch(endpoint, requestData, HttpMethods.PATCH, token, 200);
 }

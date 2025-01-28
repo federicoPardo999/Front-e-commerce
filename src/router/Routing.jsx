@@ -6,7 +6,7 @@ import Register from '../components/Register';
 import Home from './Home';
 import MainPage from '../components/MainPage';
 import ProtectedRoute from './ProtectedRoute';
-
+import Cart from '../components/Cart';
 
 export default function Routing() {
 
@@ -25,7 +25,10 @@ export default function Routing() {
 
         <Route element={<ProtectedRoute AllowedRulles ={["CUSTOMER","ADMIN"]} />} >
             <Route path="/product-list" element={<ProductList />} />
-            
+        </Route>
+
+        <Route element={<ProtectedRoute AllowedRulles ={["CUSTOMER"]} />} >
+            <Route path='/cart' element={<Cart />} />
         </Route>
 
       </Routes>

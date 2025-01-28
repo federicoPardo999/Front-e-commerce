@@ -44,6 +44,8 @@ export default function Login() {
           token: result.token,
           role: result.role,
           }));
+
+          console.log('token: ', result.token);
         navigate('/home');
         
       }else{

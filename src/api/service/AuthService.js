@@ -1,4 +1,4 @@
-import API_URL from '../config'; 
+import API_URL from '../conecction/config'; 
 import { executeFetch } from '../conecction/fetch';
 import { HttpMethods } from '../conecction/HttpMethods';
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import API_URL from '../config'; 
+import API_URL from '../conecction/config'; 
 import { executeFetch } from '../conecction/fetch';
 import { HttpMethods } from '../conecction/HttpMethods';
 export const createProduct = async (formData,token) => {

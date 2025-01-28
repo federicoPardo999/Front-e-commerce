@@ -52,7 +52,7 @@ const Register = () => {
                 <label htmlFor="mail">Mail</label>
                 <input id="mail" type="email" name="mail" value={registerData.mail} onChange={handleChange} required />
             </div>
-            <select className='role-container' id="role" name="role" value={registerData.role} onChange={handleChange}>
+            <select className='role-container' id="role" name="role" value={registerData.role} onChange={handleChange} required>
                 <option className='role-input' value="">Select role</option>
                 <option className='role-input' value="ADMIN">ADMIN</option>
                 <option className='role-input' value="CUSTOMER">CUSTOMER</option>

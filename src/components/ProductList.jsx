@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { getProducts } from '../api/service/ProductService';  // Servicio que obtiene productos
 import '../styles/ProductList.css';
 import {useSelector} from 'react-redux';
-
+import {Link} from 'react-router-dom';
 import {addProductToCart} from '../api/service/CartService';
 
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const token = useSelector((state) => state.user.token);
+  const role = useSelector((state) => state.user.role);
   const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
@@ -33,8 +34,11 @@ const handleQuantityChange = (idProduct, newQuantity) => {
 
   const handleAddCart = async (idProduct) => {
     try{
-      console.log(idProduct,quantities);
+      if(role !== "CUSTOMER")
+        alert("only customers can add products to cart")
+
       await addProductToCart(token,idProduct,quantities[idProduct]); 
+      console.log("producto creado con exito")
     }catch(e){
       console.error('Error adding product to cart:', e);  
     }
@@ -42,6 +46,11 @@ const handleQuantityChange = (idProduct, newQuantity) => {
 
   return (
     <div>
+      <div className='button-to-cart'>
+        <Link to="/cart" style={{ marginRight: '10px' }}>
+            <button>ir al carrito</button>
+        </Link>
+      </div>
       <h2>List of products</h2>
       <div className="product-list">
         {
@@ -63,7 +72,9 @@ const handleQuantityChange = (idProduct, newQuantity) => {
                     handleQuantityChange(product.idProduct, Number(e.target.value))}
                   />
                   <button onClick={() => handleAddCart(product.idProduct)}>add to cart</button>
+                  
                 </div>
+                
               ))
             ) : <p>No hay productos para mostrar</p> 
         }
