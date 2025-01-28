@@ -8,10 +8,9 @@ export default function ProductForm() {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productDescription, setProductDescription] = useState('');
-  const [productImage, setProductImage] = useState(null); // Para manejar la imagen
+  //const [productImage, setProductImage] = useState(null); // Para manejar la imagen
   const [productStock, setProductStock] = useState('');
 
-  
   const navigate = useNavigate();
   const token = useSelector((state) => state.user.token);
 
@@ -28,12 +27,11 @@ export default function ProductForm() {
     formData.append('price', productPrice);
     formData.append('description', productDescription);
     formData.append('stock', productStock);
-    if (productImage) formData.append('image', productImage);
+    //if (productImage) formData.append('image', productImage);
 
     try {
       await createProduct(formData,token);
       alert('Producto creado correctamente');
-      
     } catch (error) {
       console.error('Error creando el producto:', error);
       alert('Error al crear el producto');
@@ -76,17 +74,11 @@ export default function ProductForm() {
             type="number"
             value={productStock}
             onChange={(e) => setProductStock(e.target.value)}
+            min={1}
             required
           />
         </div>
-        <div>
-          <label>Imagen</label>
-          <input
-            type="file"
-            onChange={handleImageChange}
-            required
-          />
-        </div>
+        
         <button type="submit">Cargar Producto</button>
       </form>
 
