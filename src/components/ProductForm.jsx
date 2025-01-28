@@ -13,7 +13,8 @@ export default function ProductForm() {
 
   
   const navigate = useNavigate();
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state) => state.user.token);
+
   const handleImageChange = (e) => {
     setProductImage(e.target.files[0]);
   };
@@ -30,9 +31,9 @@ export default function ProductForm() {
     if (productImage) formData.append('image', productImage);
 
     try {
-      await createProduct(formData);
+      await createProduct(formData,token);
       alert('Producto creado correctamente');
-      navigate('/product-list'); // Redirigir a la lista de productos
+      
     } catch (error) {
       console.error('Error creando el producto:', error);
       alert('Error al crear el producto');
