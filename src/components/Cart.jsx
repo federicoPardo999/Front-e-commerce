@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import { getProductsCart, updateStockProduct } from "../api/service/CartService";
 import { useSelector } from 'react-redux';
 import '../styles/Cart.css';
+import { data } from "react-router-dom";
+
+import { Link } from 'react-router-dom';
+
 export default function Cart() {
+
 
   const token = useSelector((state) => state.user.token);
   const [productsCart, setProductsCart] = useState([]);
   const [totalSpent, setTotalSpent] = useState(0);
   const [quantities, setQuantities] = useState({});
-  // Obtener los productos del carrito al cargar el componente
+  const [errorStock, setErrorStock] = useState('');
+
   useEffect(() => {
     const fetchProductsCart = async () => {
       try {
@@ -22,7 +28,6 @@ export default function Cart() {
     fetchProductsCart();
   }, []);
 
-  // Manejar el cambio en la cantidad de un producto
   const handleQuantityChange = (idProduct, newQuantity) => {
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
@@ -30,20 +35,25 @@ export default function Cart() {
     }));
   };
 
-  // Actualizar el stock de un producto en el backend
   const handleUpdateStock = async (idProduct, newStock) => {
     try {
-      // Llamar al endpoint para actualizar el stock
-      const updatedCart = await updateStockProduct(token, idProduct, newStock);
-
+      await updateStockProduct(token, idProduct, newStock);
+      const data = await getProductsCart(token);
+      setProductsCart(data.products);
+      setTotalSpent(data.totalSpent);
       
     } catch (error) {
-      console.error('Error updating stock:', error);
+      console.error('Error updating stock:', error.message);
+      setErrorStock(`Error al actualizar el stock, la cantidad a
+        comprar tiene que ser menor/igual que: ${data.products[idProduct].stock} `);
     }
   };
 
   return (
     <div className="cart-container">
+      <Link to="/product-list" style={{ marginRight: '10px' }}>
+            <button className='login-comeback'>Volver</button>
+      </Link>
       <h2>Cart</h2>
       <div className="cart-product-list">
         {productsCart.length > 0 ? (
@@ -53,12 +63,14 @@ export default function Cart() {
               <h3 className="cart-product-name">{product.name}</h3>
               <p className="cart-product-price">Precio unitario: ${product.price}</p>
               <p className="cart-product-stock">Stock disponible: {product.stock}</p>
+              {errorStock && <p className="message-error">{errorStock}</p>}
               <div className="cart-product-quantity">
                 <label>Cantidad:</label>
                 <input
                   type="number"
-                  min={1}
+                  min={1} // aca hay un bug
                   max={product.stock}
+                  limit={product.stock}
                   value={quantities[product.idProduct] || product.stockToBuy}
                   onChange={(e) => handleQuantityChange(product.idProduct, Number(e.target.value))}
                   className="cart-quantity-input"

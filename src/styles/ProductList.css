@@ -79,3 +79,51 @@ div {
     }
   }
   
+/* Contenedor de los botones (arriba fijo) */
+.button-container {
+  position: fixed; /* Fija los botones incluso al hacer scroll */
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between; /* Separa los botones a los extremos */
+  align-items: center;
+  padding: 20px;
+  background-color: white; /* Fondo para que no se superponga con el contenido */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+  z-index: 1000; /* Asegura que estén por encima de otros elementos */
+}
+
+/* Estilos base para ambos botones */
+.button-volver,
+.button-carrito {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s;
+}
+
+/* Botón "Volver" (izquierda) */
+.button-volver {
+  background-color: #6c757d; /* Color gris */
+  color: white;
+}
+
+.button-volver:hover {
+  background-color: #5a6268; /* Color gris oscuro al hover */
+}
+
+/* Botón "Carrito" (derecha) */
+.button-carrito {
+  background-color: #007bff; /* Color azul */
+  color: white;
+}
+
+.button-carrito:hover {
+  background-color: #0056b3; /* Color azul oscuro al hover */
+}

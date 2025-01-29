@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { register } from '../api/service/AuthService.js';
 import { useNavigate } from 'react-router-dom';
 import "../styles/Register.css";
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     const [registerData, setRegisterData] = useState({
@@ -35,7 +36,13 @@ const Register = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <>
+        <h2>Register</h2>
+        <div className='comeback'></div>
+        <Link to="/" style={{ marginRight: '10px' }}>
+            <button>Volver</button>
+        </Link>
+        <form className='form-register' onSubmit={handleSubmit}>
             <div className='register'>   
                 <label htmlFor="username">Username</label>
                 <input id="username" type="text" name="username" value={registerData.username} onChange={handleChange} required />
@@ -57,9 +64,11 @@ const Register = () => {
                 <option className='role-input' value="ADMIN">ADMIN</option>
                 <option className='role-input' value="CUSTOMER">CUSTOMER</option>
             </select>
-            {error && <p className='error-message'>{error}</p>}
+            {error && <p  className='error-message'>{error}</p>}
             <button type="submit">Register</button>
         </form>
+
+        </>
     );
 };
 

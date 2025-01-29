@@ -65,3 +65,9 @@
     font-size: 1.2em;
     font-weight: bold;
   }
+
+  .login-comeback-products{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }

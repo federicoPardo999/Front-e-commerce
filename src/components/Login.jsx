@@ -4,6 +4,7 @@ import '../styles/Login.css';
 import { login } from '../api/service/AuthService';
 import {useDispatch} from 'react-redux';
 import { setCredentials } from '../store/AuthSlice';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
 
@@ -17,11 +18,7 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleBack = (e) => {
-    e.preventDefault();
-    navigate('/');
-  }
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -47,25 +44,24 @@ export default function Login() {
 
           console.log('token: ', result.token);
         navigate('/home');
-        
-      }else{
-        setError('Invalid credential')
       }
 
     } catch (e) {
-      setError(e.response.data.message);
+      console.error('Error login: username or password incorrect');
+      setError('username or password incorrect');
     }
   };
 
   return (
     <>
-      <div className='container-button-back'>
-          <button onClick={handleBack}> asdsda</button>
-      </div>
+      <Link to="/" style={{ marginRight: '10px' }}>
+            <button className='login-comeback'>Volver</button>
+      </Link>
       <section className="login-container">
         <h2>Login</h2>
-        {error && <p className='mensaje-error'>{error}</p>}
+       
         <form onSubmit={handleLogin}>
+        {error && <p  className='error-message'>{error}</p>}
           <div>
             <label htmlFor='username'>Username</label>
             <input

@@ -4,6 +4,7 @@ import '../styles/ProductList.css';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {addProductToCart} from '../api/service/CartService';
+import HeaderButtons from './utils/HeaderButtons';
 
 
 export default function ProductList() {
@@ -46,11 +47,9 @@ const handleQuantityChange = (idProduct, newQuantity) => {
 
   return (
     <div>
-      <div className='button-to-cart'>
-        <Link to="/cart" style={{ marginRight: '10px' }}>
-            <button>ir al carrito</button>
-        </Link>
-      </div>
+
+      <HeaderButtons/>
+      
       <h2>List of products</h2>
       <div className="product-list">
         {
