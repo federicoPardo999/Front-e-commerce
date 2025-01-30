@@ -47,13 +47,12 @@ const handleQuantityChange = (idProduct, newQuantity) => {
 
   return (
     <div>
-
       <HeaderButtons/>
       
       <h2>List of products</h2>
       <div className="product-list">
         {
-              (products.length > 0) ? (
+            (products.length > 0) ? (
               products.map((product) => (
                 <div className="product-card" key={product.idProduct}>
                   <img src={product.image} alt={product.name} />
@@ -64,7 +63,8 @@ const handleQuantityChange = (idProduct, newQuantity) => {
                   <input 
                   placeholder='Quantity to add'
                   type= 'number'
-                  min={1}
+                  min= "1"
+                  max={product.stock}
                   value = {quantities[product.idProduct] || 1}
                   name='Quantity of products' 
                   onChange={(e) => 

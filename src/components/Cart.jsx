@@ -5,6 +5,7 @@ import '../styles/Cart.css';
 import { data } from "react-router-dom";
 
 import { Link } from 'react-router-dom';
+import ButtonBack from "./utils/BackButton";
 
 export default function Cart() {
 
@@ -51,9 +52,7 @@ export default function Cart() {
 
   return (
     <div className="cart-container">
-      <Link to="/product-list" style={{ marginRight: '10px' }}>
-            <button className='login-comeback'>Volver</button>
-      </Link>
+      <ButtonBack/>
       <h2>Cart</h2>
       <div className="cart-product-list">
         {productsCart.length > 0 ? (

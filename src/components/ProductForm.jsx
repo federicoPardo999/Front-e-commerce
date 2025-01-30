@@ -3,6 +3,7 @@ import '../styles/ProductForm.css';
 import { useNavigate } from 'react-router-dom';
 import { createProduct } from '../api/service/ProductService';  // Usa la función del servicio
 import { useSelector } from 'react-redux';
+import ButtonBack from './utils/BackButton';
 
 export default function ProductForm() {
   const [productName, setProductName] = useState('');
@@ -39,54 +40,58 @@ export default function ProductForm() {
   };
 
   return (
-    <div className="product-form-container">
-      <h2>Cargar Producto</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Nombre del Producto</label>
-          <input
-            type="text"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Precio</label>
-          <input
-            type="number"
-            value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Descripción</label>
-          <textarea
-            value={productDescription}
-            onChange={(e) => setProductDescription(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Stock</label>
-          <input
-            type="number"
-            value={productStock}
-            onChange={(e) => setProductStock(e.target.value)}
-            min={1}
-            required
-          />
-        </div>
+    <>
+        <ButtonBack></ButtonBack>
         
-        <button type="submit">Cargar Producto</button>
-      </form>
+        <div className="product-form-container">
+        <h2>Cargar Producto</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Nombre del Producto</label>
+            <input
+              type="text"
+              value={productName}
+              onChange={(e) => setProductName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Precio</label>
+            <input
+              type="number"
+              value={productPrice}
+              onChange={(e) => setProductPrice(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Descripción</label>
+            <textarea
+              value={productDescription}
+              onChange={(e) => setProductDescription(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Stock</label>
+            <input
+              type="number"
+              value={productStock}
+              onChange={(e) => setProductStock(e.target.value)}
+              min={1}
+              required
+            />
+          </div>
+          
+          <button type="submit">Cargar Producto</button>
+        </form>
 
-      <section>
-        <button type="button" onClick={() => {navigate("/product-list")}}>
-          Ver Productos
-        </button>
-      </section>
-    </div>
-  );
+        <section>
+          <button type="button" onClick={() => {navigate("/product-list")}}>
+            Ver Productos
+          </button>
+        </section>
+      </div>
+    </>
+ );
 }
