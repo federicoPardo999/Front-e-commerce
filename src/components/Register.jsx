@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { register } from '../api/service/AuthService.js';
 import { useNavigate } from 'react-router-dom';
 import "../styles/Register.css";
-import { Link } from 'react-router-dom';
+import ButtonBack from './utils/BackButton.jsx';
 
 const Register = () => {
     const [registerData, setRegisterData] = useState({
@@ -38,10 +38,8 @@ const Register = () => {
     return (
         <>
         <h2>Register</h2>
-        <div className='comeback'></div>
-        <Link to="/" style={{ marginRight: '10px' }}>
-            <button>Volver</button>
-        </Link>
+
+        <ButtonBack/>
         <form className='form-register' onSubmit={handleSubmit}>
             <div className='register'>   
                 <label htmlFor="username">Username</label>

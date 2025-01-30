@@ -70,10 +70,10 @@ body {
 }
 
 /* Estilos para el botón de volver */
-.comeback {
+.register-comeback{
     position: absolute;
-    top: 20px;
-    right: 20px;    
+  top: 20px;
+  left: 20px;
 }
 
 .comeback button {

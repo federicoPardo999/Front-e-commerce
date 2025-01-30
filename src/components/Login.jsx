@@ -4,7 +4,7 @@ import '../styles/Login.css';
 import { login } from '../api/service/AuthService';
 import {useDispatch} from 'react-redux';
 import { setCredentials } from '../store/AuthSlice';
-import { Link } from 'react-router-dom';
+import ButtonBack from './utils/BackButton';
 
 export default function Login() {
 
@@ -54,9 +54,7 @@ export default function Login() {
 
   return (
     <>
-      <Link to="/" style={{ marginRight: '10px' }}>
-            <button className='login-comeback'>Volver</button>
-      </Link>
+      <ButtonBack/>
       <section className="login-container">
         <h2>Login</h2>
        

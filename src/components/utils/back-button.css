@@ -1,0 +1,18 @@
+.button-comeback {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  
+    background-color: #f4f4f4;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: ease-in 0.2s;
+    padding: 10px 20px;
+  }
+  
+  .button-comeback:hover {
+    background-color: #218838;
+    color: white;
+  }
+  

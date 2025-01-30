@@ -53,7 +53,7 @@ const handleQuantityChange = (idProduct, newQuantity) => {
       <h2>List of products</h2>
       <div className="product-list">
         {
-            (products.length > 0) ? (
+              (products.length > 0) ? (
               products.map((product) => (
                 <div className="product-card" key={product.idProduct}>
                   <img src={product.image} alt={product.name} />
