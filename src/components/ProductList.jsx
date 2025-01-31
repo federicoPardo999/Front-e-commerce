@@ -49,6 +49,7 @@ const handleQuantityChange = (idProduct, newQuantity) => {
     <div>
       <HeaderButtons/>
       
+      
       <h2>List of products</h2>
       <div className="product-list">
         {
