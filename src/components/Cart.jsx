@@ -10,7 +10,6 @@ import ButtonBack from "./utils/BackButton";
 
 export default function Cart() {
 
-
   const token = useSelector((state) => state.user.token);
   const [productsCart, setProductsCart] = useState([]);
   const [totalSpent, setTotalSpent] = useState(0);
@@ -18,15 +17,19 @@ export default function Cart() {
   const [errorStock, setErrorStock] = useState('');
 
   useEffect(() => {
-    const fetchProductsCart = async () => {
-      try {
-        await updateProductCart()
-      } catch (error) {
-        console.error('Error fetching products of the cart:', error);
-      }
-    };
-    fetchProductsCart();
+    updateProductCart();
   }, []);
+
+  const updateProductCart = async () =>{
+    try{
+      const data = await getProductsCart(token);
+      setProductsCart(data.products);
+      setTotalSpent(data.totalSpent);
+    }catch(error){
+      console.error('error a cargar los productos',e)
+    }
+      
+  }
 
   const handleQuantityChange = (idProduct, newQuantity) => {
     setQuantities((prevQuantities) => ({
@@ -41,9 +44,9 @@ export default function Cart() {
       await updateProductCart()
 
     } catch (error) {
-      console.error('Error updating stock:', error.message);
-      setErrorStock(`Error al actualizar el stock, la cantidad a
-        comprar tiene que ser menor/igual que: ${data.products[idProduct].stock} `);
+
+      console.error('ACA ESTA EL ERROR:', error);
+      setErrorStock(`Error al actualizar el stock, cantidad invalida`);
     }
   };
 
@@ -66,14 +69,6 @@ export default function Cart() {
       }
     }
 
-    const updateProductCart = async () =>{
-        const data = await getProductsCart(token);
-        setProductsCart(data.products);
-        setTotalSpent(data.totalSpent);
-    }
-
-    
-
   return (
     <div className="cart-container">
       
@@ -83,15 +78,16 @@ export default function Cart() {
       <div className="cart-product-list">
         {productsCart.length > 0 ? (
           productsCart.map((product) => (
-            <div className="cart-product-card" key={product.idProduct}>
+            <section className="cart-product-card" key={product.idProduct}>
               <img src={product.image} alt={product.name} className="cart-product-image" />
               <h3 className="cart-product-name">{product.name}</h3>
               <p className="cart-product-price">Precio unitario: ${product.price}</p>
               <p className="cart-product-stock">Stock disponible: {product.stock}</p>
               {errorStock && <p className="message-error">{errorStock}</p>}
               <div className="cart-product-quantity">
-                <label>Cantidad:</label>
+                <label htmlFor={`quantity-${product.idProduct}`}>Cantidad:</label>
                 <input
+                  id={`quantity-${product.idProduct}`}
                   type="number"
                   min={1} // aca hay un bug
                   max={product.stock}
@@ -107,7 +103,7 @@ export default function Cart() {
                 </button>
               </div>
               <p className="cart-product-total">Total: ${product.pricePurchased}</p>
-            </div>
+            </section>
           ))
         ) : (
           <p className="cart-empty-message">No hay productos en el carrito</p>

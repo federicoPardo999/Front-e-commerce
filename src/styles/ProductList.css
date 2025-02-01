@@ -120,10 +120,15 @@ div {
 
 /* Botón "Carrito" (derecha) */
 .button-carrito {
-  background-color: #007bff; /* Color azul */
+  background-color: #218838; /* Color azul */
   color: white;
 }
 
 .button-carrito:hover {
-  background-color: #0056b3; /* Color azul oscuro al hover */
+  background-color: #186b2a; /* Color azul oscuro al hover */
+}
+
+.message-error :required{
+  color:red;
+  font-weight: bold;
 }

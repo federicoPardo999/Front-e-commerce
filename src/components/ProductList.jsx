@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { getProducts } from '../api/service/ProductService';  // Servicio que obtiene productos
 import '../styles/ProductList.css';
 import {useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
 import {addProductToCart} from '../api/service/CartService';
 import HeaderButtons from './utils/HeaderButtons';
 
@@ -12,6 +11,7 @@ export default function ProductList() {
   const token = useSelector((state) => state.user.token);
   const role = useSelector((state) => state.user.role);
   const [quantities, setQuantities] = useState({});
+  const [errorStock,setErrorStock] = useState({});
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,7 +24,7 @@ export default function ProductList() {
     };
 
     fetchProducts();
-  }, []);
+  },[products]);
 
 const handleQuantityChange = (idProduct, newQuantity) => {
     setQuantities((prevQuantities) => ({
@@ -32,6 +32,7 @@ const handleQuantityChange = (idProduct, newQuantity) => {
       [idProduct]: newQuantity,
     }));
 };
+
 
   const handleAddCart = async (idProduct) => {
     try{
@@ -41,16 +42,21 @@ const handleQuantityChange = (idProduct, newQuantity) => {
       await addProductToCart(token,idProduct,quantities[idProduct]); 
       console.log("product added to cart");
     }catch(e){
+      HandleError(idProduct)
       console.error('Error adding product to cart:', e);  
     }
   }
 
+  const HandleError = (idProduct) =>{
+    setErrorStock((errors) =>({
+      ...errors,
+      [idProduct] : `debe comprar ${products[idProduct].stock} productos o menos.`
+    }));
+}
+
   return (
     <div>
       <HeaderButtons/>
-      
-      
-      <h2>List of products</h2>
       <div className="product-list">
         {
             (products.length > 0) ? (
@@ -71,6 +77,9 @@ const handleQuantityChange = (idProduct, newQuantity) => {
                   onChange={(e) => 
                     handleQuantityChange(product.idProduct, Number(e.target.value))}
                   />
+
+                  {errorStock[product.idProduct] && <p className="message-error">{errorStock[product.idProduct]}</p>}
+
                   <button onClick={() => handleAddCart(product.idProduct)}>add to cart</button>
                   
                 </div>
