@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getProductsCart, updateStockProduct } from "../api/service/CartService";
+import {buyCart} from "../api/service/OrderService"
 import { useSelector } from 'react-redux';
 import '../styles/Cart.css';
 import { data } from "react-router-dom";
+import { updateStockProductsPurchase } from "../api/service/ProductService";
 
 import ButtonBack from "./utils/BackButton";
 
@@ -18,9 +20,7 @@ export default function Cart() {
   useEffect(() => {
     const fetchProductsCart = async () => {
       try {
-        const data = await getProductsCart(token);
-        setProductsCart(data.products);
-        setTotalSpent(data.totalSpent);
+        await updateProductCart()
       } catch (error) {
         console.error('Error fetching products of the cart:', error);
       }
@@ -38,10 +38,8 @@ export default function Cart() {
   const handleUpdateStock = async (idProduct, newStock) => {
     try {
       await updateStockProduct(token, idProduct, newStock);
-      const data = await getProductsCart(token);
-      setProductsCart(data.products);
-      setTotalSpent(data.totalSpent);
-      
+      await updateProductCart()
+
     } catch (error) {
       console.error('Error updating stock:', error.message);
       setErrorStock(`Error al actualizar el stock, la cantidad a
@@ -49,9 +47,38 @@ export default function Cart() {
     }
   };
 
+    const handleBuy = async () =>{
+        try{
+          await buyCart(token);
+          await updateProductCart()
+          await updateStockProducts()
+        }catch(e){
+          console.error('error realizando compra del carrito',e);
+        } 
+    }
+
+    const updateStockProducts = async () =>{
+      try{
+        await updateStockProductsPurchase(productsCart,token)
+      }catch(e){
+        console.error('error al actualizar stock de los productos')
+
+      }
+    }
+
+    const updateProductCart = async () =>{
+        const data = await getProductsCart(token);
+        setProductsCart(data.products);
+        setTotalSpent(data.totalSpent);
+    }
+
+    
+
   return (
     <div className="cart-container">
+      
       <ButtonBack/>
+
       <h2>Cart</h2>
       <div className="cart-product-list">
         {productsCart.length > 0 ? (
@@ -88,6 +115,10 @@ export default function Cart() {
       </div>
       <div className="cart-total-spent">
         <h3>Total gastado: ${totalSpent}</h3>
+      </div>
+
+      <div >
+          <button onClick={() => handleBuy()} className="button-buy"> Finalizar Compra </button>
       </div>
         
     </div>

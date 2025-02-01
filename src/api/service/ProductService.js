@@ -22,3 +22,9 @@ export const getProducts = async (token) => {
   const endpoint = `${API_URL}/product/get-all`;
   return await executeFetch(endpoint, null, HttpMethods.GET, token, 200);
 };
+
+export const updateStockProductsPurchase = (products,token) =>{
+  const endpoint = `${API_URL}/product/update-stock `;
+  return executeFetch(endpoint,products,HttpMethods.PATCH,token,200)
+  
+}

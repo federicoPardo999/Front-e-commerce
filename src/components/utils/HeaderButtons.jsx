@@ -14,6 +14,12 @@ const  HeaderButtons = () => {
                 <i className="fas fa-arrow-left"></i> Volver
             </button>
 
+             <button 
+                className="button-purchase-history" 
+                onClick={() => navigate('/purchase-history')} 
+            >
+                 Ver Compras
+            </button>   
             <button 
                 className="button-carrito" 
                 onClick={() => navigate('/cart')} 

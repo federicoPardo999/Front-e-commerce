@@ -7,6 +7,7 @@ import Home from './Home';
 import MainPage from '../components/MainPage';
 import ProtectedRoute from './ProtectedRoute';
 import Cart from '../components/Cart';
+import PurchaseHistory from '../components/PurchaseHistory';
 
 export default function Routing() {
 
@@ -29,6 +30,7 @@ export default function Routing() {
 
         <Route element={<ProtectedRoute AllowedRulles ={["CUSTOMER"]} />} >
             <Route path='/cart' element={<Cart />} />
+            <Route path='/purchase-history' element={<PurchaseHistory />} />  
         </Route>
 
       </Routes>
