@@ -47,7 +47,7 @@ export default function Login() {
       }
 
     } catch (e) {
-      console.error('Error login: username or password incorrect');
+      console.error('Error login: username or password incorrect',e);
       setError('username or password incorrect');
     }
   };

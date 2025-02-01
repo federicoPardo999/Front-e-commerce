@@ -27,7 +27,7 @@ export default function PurchaseHistory() {
         {
             (purchases.length > 0) ? (
                 purchases.map((purchase) => (
-                    <div className="purchase-container" key={purchase.idProduct}>
+                    <div className="purchase-container" key={purchase.idPurchase}>
                       <h3>{purchase.name}</h3>
                       <p className="purchise-price">Precio del producto: ${purchase.price}</p>
                       <p className="purchise- stock">Stock comprado : {purchase.stockToBuy}</p>

@@ -4,7 +4,7 @@ import '../styles/ProductList.css';
 import {useSelector} from 'react-redux';
 import {addProductToCart} from '../api/service/CartService';
 import HeaderButtons from './utils/HeaderButtons';
-
+ 
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -18,21 +18,21 @@ export default function ProductList() {
       try {
         const data = await getProducts(token);
         setProducts(data);
+       
       } catch (error) {
         console.error('Error fetching products:', error);
       }
     };
 
     fetchProducts();
-  },[products]);
+  },[]);
 
-const handleQuantityChange = (idProduct, newQuantity) => {
+  const handleQuantityChange = (idProduct, newQuantity) => {
     setQuantities((prevQuantities) => ({
       ...prevQuantities,
       [idProduct]: newQuantity,
     }));
-};
-
+  };
 
   const handleAddCart = async (idProduct) => {
     try{
@@ -43,16 +43,20 @@ const handleQuantityChange = (idProduct, newQuantity) => {
       console.log("product added to cart");
     }catch(e){
       HandleError(idProduct)
-      console.error('Error adding product to cart:', e);  
+      console.error('Cantidad a a comprar invalida', e);  
     }
   }
 
-  const HandleError = (idProduct) =>{
-    setErrorStock((errors) =>({
-      ...errors,
-      [idProduct] : `debe comprar ${products[idProduct].stock} productos o menos.`
-    }));
-}
+  const HandleError = (idProduct) => {
+    const product = products.find(p => p.idProduct === idProduct);
+    
+    if (product) {
+      setErrorStock((errors) => ({
+        ...errors,
+        [idProduct]: `solo puede comprar ${product.stock} productos o menos.`
+      }));
+    }
+  };
 
   return (
     <div>
@@ -62,16 +66,15 @@ const handleQuantityChange = (idProduct, newQuantity) => {
             (products.length > 0) ? (
               products.map((product) => (
                 <div className="product-card" key={product.idProduct}>
-                  <img src={product.image} alt={product.name} />
+                  <img src={product.urlImage} alt={product.name} />
                   <h3>{product.name}</h3>
                   <p>{product.description}</p>
                   <p className="price">Precio: ${product.price}</p>
-                  <p className="stock">Stock: {product.stock}</p>
+                  <p className="stock">Stock disponible: {product.stock}</p>
                   <input 
                   placeholder='Quantity to add'
                   type= 'number'
-                  min= "1"
-                  max={product.stock}
+                  min= {1}
                   value = {quantities[product.idProduct] || 1}
                   name='Quantity of products' 
                   onChange={(e) => 

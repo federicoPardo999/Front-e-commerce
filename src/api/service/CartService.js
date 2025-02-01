@@ -28,3 +28,4 @@ export const updateStockProduct = async (token,productId,quantityBuyStock) =>{
    
     return await executeFetch(endpoint, requestData, HttpMethods.PATCH, token, 200);
 }
+

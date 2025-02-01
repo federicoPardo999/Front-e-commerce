@@ -13,4 +13,4 @@ export const getPurchases = async (token) => {
     const endpoint = `${API_URL}/order/get-orders`;
 
     return executeFetch(endpoint,null,HttpMethods.GET,token,200);
-}
+}   

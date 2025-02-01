@@ -3,8 +3,9 @@ import API_URL from '../conecction/config';
 import { executeFetch } from '../conecction/fetch';
 import { HttpMethods } from '../conecction/HttpMethods';
 export const createProduct = async (formData,token) => {
+  const endpoint = `${API_URL}/product/create`;
     try {
-      const response = await axios.post(`${API_URL}/product/create`, formData, {
+      const response = await axios.post(endpoint, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization' : `Bearer ${token}`,
@@ -24,7 +25,7 @@ export const getProducts = async (token) => {
 };
 
 export const updateStockProductsPurchase = (products,token) =>{
-  const endpoint = `${API_URL}/product/update-stock `;
-  return executeFetch(endpoint,products,HttpMethods.PATCH,token,200)
+  const endpoint = `${API_URL}/product/update-stock`;
+  return executeFetch(endpoint,products,HttpMethods.PATCH,token,200);
   
 }
