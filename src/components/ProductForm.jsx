@@ -47,8 +47,9 @@ export default function ProductForm() {
         <h2>Cargar Producto</h2>
         <form onSubmit={handleSubmit}>
           <div>
-            <label>Nombre del Producto</label>
+            <label htmlFor="productName">Nombre del Producto</label>
             <input
+              id="productName"
               type="text"
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
@@ -56,16 +57,18 @@ export default function ProductForm() {
             />
           </div>
           <div>
-            <label>Precio</label>
+            <label htmlFor="productPrice">Precio</label>
             <input
+              id="productPrice"
               type="number"
+              min={1}
               value={productPrice}
               onChange={(e) => setProductPrice(e.target.value)}
               required
             />
           </div>
           <div>
-            <label>Descripción</label>
+            <label htmlFor="productDescription">Descripción</label>
             <textarea
               value={productDescription}
               onChange={(e) => setProductDescription(e.target.value)}
@@ -73,8 +76,9 @@ export default function ProductForm() {
             />
           </div>
           <div>
-            <label>Stock</label>
+            <label htmlFor="productStock">Stock</label>
             <input
+              id="productStock"
               type="number"
               value={productStock}
               onChange={(e) => setProductStock(e.target.value)}

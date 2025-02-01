@@ -14,7 +14,6 @@ const Register = () => {
         mail: '',
         role: ''
     });
-
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -43,6 +42,7 @@ const Register = () => {
     const welcomeMessage = async (token) => {
         try{
             await sendWelcomeMessage(registerData.mail,registerData.username,token);
+            console.log('mail enviado')
         }catch (error) {
             console.error("error al enviar el mensaje de bienvenida");
         }

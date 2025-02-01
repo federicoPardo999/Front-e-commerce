@@ -39,7 +39,7 @@ const handleQuantityChange = (idProduct, newQuantity) => {
         alert("only customers can add products to cart")
 
       await addProductToCart(token,idProduct,quantities[idProduct]); 
-      console.log("producto creado con exito")
+      console.log("product added to cart");
     }catch(e){
       console.error('Error adding product to cart:', e);  
     }

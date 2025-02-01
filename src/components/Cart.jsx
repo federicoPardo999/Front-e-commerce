@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import '../styles/Cart.css';
 import { data } from "react-router-dom";
 
-import { Link } from 'react-router-dom';
 import ButtonBack from "./utils/BackButton";
 
 export default function Cart() {
@@ -69,7 +68,6 @@ export default function Cart() {
                   type="number"
                   min={1} // aca hay un bug
                   max={product.stock}
-                  limit={product.stock}
                   value={quantities[product.idProduct] || product.stockToBuy}
                   onChange={(e) => handleQuantityChange(product.idProduct, Number(e.target.value))}
                   className="cart-quantity-input"
