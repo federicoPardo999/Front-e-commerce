@@ -9,7 +9,6 @@ import ButtonBack from "./utils/BackButton";
 
 export default function Cart() {
 
-
   const token = useSelector((state) => state.user.token);
   const [productsCart, setProductsCart] = useState([]);
   const [totalSpent, setTotalSpent] = useState(0);
@@ -20,6 +19,13 @@ export default function Cart() {
     const fetchProductsCart = async () => {
       try {
         await updateProductCart()
+        
+        const initialQuantities = {};
+        
+        data.forEach((product) => {
+          initialQuantities[product.idProduct] = 1;
+        });
+        setQuantities(initialQuantities);
         
       } catch (error) {
         console.error('Error fetching products of the cart:', error);
@@ -90,8 +96,9 @@ export default function Cart() {
               <p className="cart-product-stock">Stock disponible: {product.stock}</p>
               {errorStock && <p className="message-error">{errorStock}</p>}
               <div className="cart-product-quantity">
-                <label>Cantidad:</label>
+                <label htmlFor="stock">stock:</label>
                 <input
+                  id = "stock"
                   type="number"
                   min={1} // aca hay un bug
                   max={product.stock}
